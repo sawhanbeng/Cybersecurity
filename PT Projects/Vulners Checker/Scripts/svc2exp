@@ -1,0 +1,3 @@
+java-rmi:exploit/multi/misc/java_rmi_server
+samba:exploit/multi/samba/usermap_script
+vsftpd 2.3.4:exploit/unix/ftp/vsftpd_234_backdoor
