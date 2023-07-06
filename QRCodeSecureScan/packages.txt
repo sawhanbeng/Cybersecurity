@@ -1,7 +1,7 @@
-libgl1
-libzbar0
-libzbar-dev
-libsm6
-libxrender1
-libfontconfig1
-libice6
+apt-get libgl1
+apt-get libzbar0
+apt-get libzbar-dev
+apt-get libsm6
+apt-get libxrender1
+apt-get libfontconfig1
+apt-get libice6
