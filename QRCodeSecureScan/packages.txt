@@ -1,8 +1,7 @@
-libzbar-dev
-ffmpeg
-libsm6
-libxext6
-freeglut3-dev
-libgtk2.0-dev
+libgl1
 libzbar0
-zbar-tools
+libzbar-dev
+libsm6
+libxrender1
+libfontconfig1
+libice6
