@@ -40,18 +40,19 @@ if image:
 
     pil_image = Image.open(image)
     cv2_img = cv2.cvtColor(np.array(pil_image), cv2.COLOR_RGB2BGR)
-    
     try:
-        data = decode(cv2_img)[0].data.decode('utf-8')
-        if data:
-            if check_string_contains_domains(data):
+        data = decode(cv2_img)[0].data.decode()
+        #st.write(data)
+        if data is not None:
+            if check_string_contains_approved_list(data, file):
+                st.write("Link is in Approved List")
+                st.write(f"Decoded data is {data}")
+            elif check_string_contains_domains(data):
                 st.write("Link is malicious")
             elif data.startswith(r"http://"):
                 st.write("Link is not secure")
                 st.write(f"Decoded data is {data}")
-            if file:
-                if check_string_contains_approved_list(data, file):
-                    st.write("Link is in Approved List")
-                    st.write(f"Decoded data is {data}")
-    except IndexError:
+            else:
+                st.write(f"Decoded data is {data}")
+    except:
         st.write("QR code not found..")
