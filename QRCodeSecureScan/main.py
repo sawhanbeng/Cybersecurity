@@ -20,7 +20,6 @@ def check_string_contains_domains(string):
     
     return False
 
-@st.cache_data
 def check_string_contains_approved_list(string, file):
     for link in file:        
         if link.decode().strip() == string:
@@ -40,19 +39,34 @@ if image:
 
     pil_image = Image.open(image)
     cv2_img = cv2.cvtColor(np.array(pil_image), cv2.COLOR_RGB2BGR)
+    
     try:
         data = decode(cv2_img)[0].data.decode()
-        #st.write(data)
-        if data is not None:
-            if check_string_contains_approved_list(data, file):
-                st.write("Link is in Approved List")
+        if data and file:        
+            if check_string_contains_domains(data):
+                st.write("Link is malicious")
+            elif data.startswith(r"http://"):
+                st.write("Link is not secure")
                 st.write(f"Decoded data is {data}")
-            elif check_string_contains_domains(data):
+            elif file:
+                if check_string_contains_approved_list(data, file):
+                    st.write("Link is in Approved List")
+                    st.write(f"Decoded data is {data}")
+                    st.write("")
+                else:
+                    st.write(f"Decoded data is {data}")
+            else:
+                st.write(f"Decoded data is {data}")
+        elif data:
+            if check_string_contains_domains(data):
                 st.write("Link is malicious")
             elif data.startswith(r"http://"):
                 st.write("Link is not secure")
                 st.write(f"Decoded data is {data}")
             else:
                 st.write(f"Decoded data is {data}")
+        else:
+            st.write("QR code not found..")  
     except:
         st.write("QR code not found..")
+    
